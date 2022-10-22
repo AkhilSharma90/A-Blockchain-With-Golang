@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -41,7 +42,7 @@ func (b *Block) generateHash() {
 	// get string val of the Data
 	bytes, _ := json.Marshal(b.Data)
 	// concatenate the dataset
-	data := string(b.Pos) + b.Timestamp + string(bytes) + b.PrevHash
+	data := strconv.Itoa(b.Pos) + b.Timestamp + string(bytes) + b.PrevHash
 	hash := sha256.New()
 	hash.Write([]byte(data))
 	b.Hash = hex.EncodeToString(hash.Sum(nil))
